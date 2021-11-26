@@ -6,7 +6,7 @@
       </ion-col>
     </ion-row>
 </template>
-
+ 
 <script>
 
 import { cart } from 'ionicons/icons';
