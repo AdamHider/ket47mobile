@@ -1,0 +1,7 @@
+{
+  "name": "Tezkel",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
