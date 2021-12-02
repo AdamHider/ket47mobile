@@ -1,7 +1,7 @@
 <template>
-    <ion-slides pager="true" :options="slideOpts" class="order-list">
+    <ion-slides pager="true" :options="slideOpts" class="order-list" v-if="ordersNotEmpty">
         <ion-slide v-for="(order_list, order_role) in orderGroups" :key="order_role">
-            <ion-card>
+            <ion-card  v-if="order_list.length > 0">
                 <ion-card-header>
                     <ion-card-title>{{ roleDef[order_role] }}</ion-card-title>
                 </ion-card-header>
@@ -74,6 +74,11 @@ export default{
                 'supplier': 'Заказы поставщика',
                 'admin': 'Администратор'
             }
+        }
+    },
+    computed:{
+        ordersNotEmpty(orderGroups){
+            return (orderGroups.length > 0 && (orderGroups.customer.length > 0 || orderGroups.courier.length > 0  || orderGroups.courier.length > 0 || orderGroups.guest.length > 0 ));
         }
     },
     methods: {
