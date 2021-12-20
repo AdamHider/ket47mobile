@@ -6,7 +6,7 @@
       <ion-button slot="end" @click="clearCart"><ion-icon :icon="trash"></ion-icon></ion-button>
     </ion-toolbar>
   </ion-header>
-  <ion-content >
+  <ion-content>
     <ion-list v-for="(order, index) in $store.state.cart.orders" :key="index" >
       <ion-item>
           <ion-label>{{ order.store_name }}</ion-label>
