@@ -26,7 +26,7 @@ const store = createStore({
             user: user,
             cart: cart
         }
-    },
+    }, 
     getters: {
         errorMessage(state){
             return state.errorMessage;
