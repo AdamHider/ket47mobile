@@ -7,7 +7,7 @@
           <ion-icon v-if="adress.type == 'home'" name="home"></ion-icon>
           <ion-icon v-if="adress.type == 'work'" name="business"></ion-icon>
           <ion-icon v-if="adress.type == 'other'" name="trail-sign"></ion-icon>
-        </ion-thumbnail>
+        </ion-thumbnail> 
         <ion-card-header>
             <ion-label>{{ adress.address }}, {{ adress.city }}</ion-label>
         </ion-card-header>

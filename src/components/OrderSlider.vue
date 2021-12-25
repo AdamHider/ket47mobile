@@ -1,5 +1,5 @@
 <template>
-    <ion-slides pager="true" :options="slideOpts" class="order-list" v-if="ordersNotEmpty">
+    <ion-slides pager="true" :options="slideOpts" class="order-list" v-if="ordersEmptyCheck()">
         <ion-slide v-for="(order_list, order_role) in orderGroups" :key="order_role">
             <ion-card  v-if="order_list.length > 0">
                 <ion-card-header>
@@ -66,7 +66,7 @@ export default{
     data(){
         return {
             error: "",
-            orderGroups: [],
+            orderGroups: {},
             roleDef: {
                 'guest': 'Гостевые заказы',
                 'customer': 'Заказы покупателя',
@@ -77,9 +77,7 @@ export default{
         }
     },
     computed:{
-        ordersNotEmpty(orderGroups){
-            return (orderGroups.length > 0 && (orderGroups.customer.length > 0 || orderGroups.courier.length > 0  || orderGroups.courier.length > 0 || orderGroups.guest.length > 0 ));
-        }
+        
     },
     methods: {
         getOrderList(){
@@ -91,10 +89,25 @@ export default{
                 .fail(function(err) {
                     self.error = err.responseJSON.messages.error;
                 });
+        },
+        ordersEmptyCheck(){
+            for(var i in this.roleDef){
+                if(this.orderGroups[i] && this.orderGroups[i].length > 0){
+                    return true;
+                }
+            }
+            return false;
         }
     },
     created(){
         this.getOrderList();
+    },
+    watch: {
+        '$route'(currentRoute) {
+            if(currentRoute.path == '/home'){
+                this.getOrderList();
+            }
+        }
     }
 };
 </script>
