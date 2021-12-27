@@ -1,10 +1,36 @@
+<template>
+      <swiper  :autoplay="true" :slides-per-view="3" :loop="true">
+        <swiper-slide>
+          <ion-img  src="./assets/homeslider/1.jpg"/>
+        </swiper-slide>
+        <swiper-slide>
+          <ion-img  src="./assets/homeslider/2.png"/>
+        </swiper-slide>
+        <swiper-slide>
+          <ion-img  src="./assets/homeslider/3.jpg"/>
+        </swiper-slide>
+        <swiper-slide>
+          <ion-img  src="./assets/homeslider/4.jpg"/>
+        </swiper-slide>
+      </swiper>
+</template>
+
 <script>
   import { defineComponent } from 'vue';
-
-  import 'swiper/css';
+  import { Swiper, SwiperSlide } from 'swiper/vue';
+  import { Autoplay } from 'swiper';
+  import 'swiper/vue';
   import '@ionic/vue/css/ionic-swiper.css';
 
   export default defineComponent({
-    
+    components: {
+      Swiper,
+      SwiperSlide,
+    },
+    setup() {
+      return {
+        modules: [Autoplay ],
+      };
+    },
   });
 </script>

@@ -13,8 +13,7 @@
         </ion-header>
         <ion-content  :class="[pageClass]" :scrollEvents="(contentOnScroll) ? 'true' : 'false'" @ionScroll="contentOnScroll($event)">
             <slot />
-            <ion-card>
-            </ion-card>
+            <ion-card></ion-card>
         </ion-content>
         <ion-footer>
               <ion-text color="danger">
