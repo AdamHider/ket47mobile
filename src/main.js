@@ -56,6 +56,8 @@ User.get(function(result){
           app.mount('#app');
         })
       })
+    } else {
+      app.mount('#app');
     }
   }
 });

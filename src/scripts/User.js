@@ -33,6 +33,7 @@ const User = {
     signOut: function(callback){
         jQuery.post( store.state.hostname + "User/signOut", {})
         .done(function() {
+            localStorage.removeItem('signInData');
             store.commit('setUser', {user_id: false});
             store.commit('setSessionId', false);
             return callback({success: true, message: ''});
