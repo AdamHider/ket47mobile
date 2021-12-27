@@ -82,6 +82,8 @@
 import { modalController, onIonViewDidEnter } from '@ionic/vue';
 import ModalUsernameConfirm from '../components/ModalUsernameConfirm.vue'
 
+import User from '../scripts/User.js'
+
 import router from '../router';
 import jQuery from "jquery";
 import store from '../store';
@@ -134,15 +136,15 @@ export default  {
         user_pass: this.fields.password,
         user_pass_confirm: this.fields.password
       }
-      jQuery.post( store.state.hostname + "User/signIn", requestData)
-        .done(function() {
+      User.signIn(requestData, function(result){
+        if(result.success){
             self.getUserData();
-        })
-        .fail(function(err) {
-            self.error = err.responseJSON.messages.error;
-            if(err.responseJSON.messages.error == 'user_phone_unverified'){
+        } else {
+            self.error = result.message;
+            if(result.message == 'user_phone_unverified'){
               self.phoneVerify();
             }
+        }
       });
     },
     getUserData(){

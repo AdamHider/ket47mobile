@@ -27,6 +27,8 @@ import '@ionic/vue/css/display.css';
 import './theme/variables.css';
 import './theme/core.css';
 
+import User from './scripts/User.js'
+
 import jQuery from "jquery";
 
 const app = createApp(App)
@@ -43,19 +45,19 @@ if(localStorage.sessionId){
     }
   });
 }  
-jQuery.post( store.state.hostname + "User/itemGet")
-  .done(function(response, textStatus, request){
-    var sid=request.getResponseHeader('x-sid');
-    store.commit('setSessionId', sid);
-    store.commit('setUser', response);
-    jQuery.ajaxSetup({
-      beforeSend: function(xhr) {
-          xhr.setRequestHeader('x-sid',  sid);
-      }
-    })
-    app.mount('#app');
-  })
-  .fail(function() {
-  });
+
+User.get(function(result){
+  if(result.success && store.state.user.user_id != -1){
+      app.mount('#app');
+  } else {
+    if(localStorage.signInData){
+      User.signIn(JSON.parse(localStorage.signInData), function(){
+        User.get(function(){
+          app.mount('#app');
+        })
+      })
+    }
+  }
+});
 
   
