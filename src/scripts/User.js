@@ -9,7 +9,7 @@ const User = {
             var sid = request.getResponseHeader('x-sid');
             store.commit('setSessionId', sid);
             store.commit('setUser', response);
-            jQuery.ajaxSetup({
+            jQuery.ajaxSetup({ 
                 beforeSend: function(xhr) {
                     xhr.setRequestHeader('x-sid',  sid);
                 }
