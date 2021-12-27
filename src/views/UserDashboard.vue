@@ -86,7 +86,9 @@
 <script>
 import { IonIcon, IonAvatar } from '@ionic/vue';
 import { create, logIn, exit, location, heart, helpCircle, call, mail, card, cart, notifications, chevronForwardOutline } from 'ionicons/icons';
-import jQuery from "jquery";
+
+import User from '../scripts/User.js'
+
 import store from '../store';
 
 export default  {
@@ -113,13 +115,10 @@ export default  {
   methods: {
     signOut(){ 
       var self = this;
-      jQuery.post( store.state.hostname + "User/signOut", {})
-        .done(function() {
-            store.commit('setUser', {user_id: false});
-            store.commit('setSessionId', false);
-        })
-        .fail(function(err) {
-            self.error = err.responseJSON.messages.error;
+      User.signOut(function(result){
+        if(!result.success){
+            self.error = result.message;
+        }
       });
     }
   },

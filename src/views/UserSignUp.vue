@@ -90,7 +90,9 @@
 
 <script>
 import { IonRow, IonCol, IonSelect, IonSelectOption   } from '@ionic/vue';
-import jQuery from "jquery";
+
+import User from '../scripts/User.js'
+
 import router from '../router';
 
 export default  {
@@ -135,13 +137,12 @@ export default  {
         user_pass_confirm: this.fields.password,
         user_name: this.fields.username
       }
-      jQuery.post( "https://api.tezkel.com/User/SignUp", requestData)
-      .done(function(response) {
-        console.log(response);
-        router.push('/sign-in');
-      })
-      .fail(function(err) {
-        self.error = err.responseJSON.messages.error;
+      User.signUp(requestData, function(result){
+        if(result.success){
+          router.push('/sign-in');
+        } else {
+            self.error = result.message;
+        }
       });
     },
     phoneValidate(ev) {
