@@ -1,5 +1,5 @@
 <template>
-      <swiper  :autoplay="true" :autoplayDisableOnInteraction="false" :slides-per-view="3" :loop="true">
+      <swiper  :modules="modules" :slides-per-view="1"  :autoplay="1000">
         <swiper-slide>
           <ion-img  src="./assets/homeslider/1.jpg"/>
         </swiper-slide>
@@ -18,9 +18,8 @@
 <script>
   import { defineComponent } from 'vue';
   import { Swiper, SwiperSlide } from 'swiper/vue';
-  import { Autoplay, Navigation, Pagination, Scrollbar, A11y  } from 'swiper';
+  import { Autoplay } from 'swiper';
   import 'swiper/vue';
-  import 'swiper/vue/autoplay';
   import '@ionic/vue/css/ionic-swiper.css';
 
   export default defineComponent({
@@ -30,7 +29,7 @@
     },
     setup() {
       return {
-        modules: [Autoplay, Navigation, Pagination, Scrollbar, A11y ],
+        modules: [Autoplay ],
       };
     },
   });
