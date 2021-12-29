@@ -1,65 +1,54 @@
 <template>
-      <swiper      
-      :modules="modules"
-      :autoplay='{
-        delay: 2500,
-        disableOnInteraction: false
-      }'
-      :slidesPerView="1" 
-      :spaceBetween="30" 
-      :loop="true" 
-      :pagination='{"clickable": true}' 
-      :scrollbar="{ draggable: true }"
-      @swiper="onSwiper"
-      @slideChange="onSlideChange">
-        <swiper-slide style="background-color:#080036;">
-          <ion-img  src="./assets/homeslider/1.jpg" style="margin-left:20%"/>
-        </swiper-slide>
-        <swiper-slide style="background-color:#7f4d58;">
-          <ion-img  src="./assets/homeslider/2.png" style="margin-left:20%"/>
-        </swiper-slide>
-        <swiper-slide style="background-color:#313575;">
-          <ion-img  src="./assets/homeslider/3.jpg" style="margin-left:20%"/>
-        </swiper-slide>
-        <swiper-slide style="background-color:#263e3e;">
-          <ion-img  src="./assets/homeslider/4.jpg" style="margin-left:20%"/>
+      <swiper :modules="modules" :autoplay='{delay: 300,disableOnInteraction: false}' :loop="true"  effect="fade">
+        <swiper-slide v-for="hslide in home_slides" :key="hslide.title" :style="`background-color:${hslide.color}`">
+          <img  :src="hslide.image" style="margin-left:20%;"/>
+          <div v-if="hslide.description" style="position:absolute;color:white;margin-left:40%;text-align:left;text-shadow: 0px 0px 3px #000000;">
+            <h1 style="font-size:3em">{{hslide.title}}</h1>
+            <p>{{hslide.description}}</p>
+          </div>
         </swiper-slide>
       </swiper>
 </template>
 
 <script>
-  import { defineComponent } from 'vue';
-  import { Swiper, SwiperSlide } from 'swiper/vue';
-
-  import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper';
- 
-
-
-  //import { Autoplay } from 'swiper';
   import 'swiper/vue';
   import '@ionic/vue/css/ionic-swiper.css';
-
+  import jQuery from "jquery";
+  import { defineComponent } from 'vue';
+  import { Swiper, SwiperSlide } from 'swiper/vue';
+  import { Autoplay, EffectFade  } from 'swiper';
   import SwiperCore from 'swiper';
-  
-  SwiperCore.use([Autoplay,Pagination,Navigation]);
+
+  SwiperCore.use([Autoplay,EffectFade]);
   export default defineComponent({
     components: {
       Swiper,
       SwiperSlide,
     },
-    setup() {
-      const onSwiper = (swiper) => {
-        console.log(swiper); 
-      };
-      const onSlideChange = () => {
-        console.log('slide change');
-      };
-
-      SwiperCore.use([Autoplay,Pagination,Navigation]);
+    data(){
       return {
-        onSwiper,
-        onSlideChange,
-        modules: [Navigation, Pagination, Scrollbar, A11y, Autoplay],
+        home_slides:[],
+        error:""
+      };
+    },
+    created(){
+        this.getSlideList();
+    },
+    methods: {
+        getSlideList(){
+            var self = this;
+            jQuery.get( "/assets/homeslider/conf.json")
+            .done(function(response) {
+              self.home_slides=response.slides;
+            })
+            .fail(function(err) {
+                self.error = err.responseJSON.messages.error;
+            });
+        }
+    },
+    setup() {
+      return {
+        modules: [Autoplay, EffectFade], 
       };
     },
   });
