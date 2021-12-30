@@ -22,8 +22,8 @@
     "core-js": "^3.6.5",
     "jquery": "^3.6.0",
     "swiper": "^6.8.4",
-    "vue": "^3.2.1",
-    "vue-router": "^4.0.0-0",
+    "vue": "^3.2.26",
+    "vue-router": "^4.0.12",
     "vue-text-mask": "^6.1.2",
     "vue-yandex-maps": "^0.10.12",
     "vuex": "^4.0.2"

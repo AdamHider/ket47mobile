@@ -2,7 +2,7 @@
       <swiper :modules="modules" :autoplay='{delay: 300,disableOnInteraction: false}' :loop="true"  effect="fade">
         <swiper-slide v-for="hslide in home_slides" :key="hslide.title" :style="`background-color:${hslide.color}`">
           <img  :src="hslide.image" style="margin-left:20%;"/>
-          <div v-if="hslide.description" style="position:absolute;color:white;margin-left:40%;text-align:left;text-shadow: 0px 0px 3px #000000;">
+          <div style="position:absolute;color:white;margin-left:40%;text-align:left;text-shadow: 0px 0px 3px #000000;">
             <h1 style="font-size:3em">{{hslide.title}}</h1>
             <p>{{hslide.description}}</p>
           </div>
@@ -47,6 +47,7 @@
         }
     },
     setup() {
+      SwiperCore.use([Autoplay,EffectFade]);
       return {
         modules: [Autoplay, EffectFade], 
       };
