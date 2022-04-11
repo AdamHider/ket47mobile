@@ -1,5 +1,12 @@
 <template>
-  <base-layout page-title="Order" :page-default-back-link="'/user-dashboard'" page-class="orders-page">
+  <base-layout page-title="" page-default-back-link="/home" page-class="orders-page">
+    
+        <order-slider></order-slider>
+
+
+
+
+
     <ion-segment  v-if="ordersEmptyCheck()">
         <ion-segment-button @click="segmentChanged($event)" :value="order_role" v-for="(order_list, order_role) in orderGroups" :key="order_role">
             <ion-label>{{ roleDef[order_role] }}</ion-label>
@@ -32,37 +39,36 @@
 
 <script>
 import jQuery from "jquery";
-
+import OrderSlider from '@/components/OrderSlider';
 
 export default{
+    components: {
+        OrderSlider
+    },
     data(){
         return {
             error: "",
             orderGroups: {},
             roleDef: {
-                'guest': 'Гостевые заказы',
-                'customer': 'Заказы покупателя',
-                'courier': 'Заказы курьера',
+                'customer': 'Заказы',
+                'courier':  'Задания',
                 'supplier': 'Заказы поставщика',
                 'admin': 'Администратор'
             }
         }
     },
-    computed:{
-        
-    },
     methods: {
         segmentChanged($event){
-            console.log($event.target._value);
+            console.log($event.target.value);
             for(var i in this.$refs){
                 this.$refs[i].hidden = true;
             }
-            this.$refs['tab-content-'+$event.target._value].hidden = false;
+            this.$refs['tab-content-'+$event.target.value].hidden = false;
             
         },
         getOrderList(){
             var self = this;
-            jQuery.post( self.$store.state.hostname + "Order/listPreviewGet")
+            jQuery.post( self.$heap.state.hostname + "Order/listPreviewGet")
                 .done(function(response) {
                     self.orderGroups = response;
                 })

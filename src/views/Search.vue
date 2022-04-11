@@ -7,6 +7,6 @@
 <script>
 
 export default  {
-  name: 'Поиск'
+  name: 'SearchPage'
 }
 </script>

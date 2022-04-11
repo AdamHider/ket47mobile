@@ -2,7 +2,7 @@
     <ion-list class="store-list">
         <ion-card class="store-item" v-for="store_item in storeList" :key="store_item.store_id">
                 <router-link :to="'store-'+store_item.store_id">
-                    <img class="store-image" v-if="store_item.image_hash" :src="$store.state.hostname + '/image/get.php/' + store_item.image_hash + '.450.450.webp'" />
+                    <ion-img class="store-image" v-if="store_item.image_hash" :src="$heap.state.hostname + '/image/get.php/' + store_item.image_hash + '.450.450.webp'" />
                     <ion-card-header>
                     <ion-card-title>{{ store_item.store_name }}</ion-card-title>
                     </ion-card-header>
@@ -15,7 +15,6 @@
                 </router-link>
         </ion-card>
     </ion-list>
-
     
 </template>
 
@@ -28,7 +27,7 @@ import {
     IonCardTitle 
 } from '@ionic/vue';
 import jQuery from "jquery";
-import store from '../store';
+import heap from '../heap';
 
 
 export default {
@@ -47,8 +46,13 @@ export default {
     },
     methods: {
         getStoreList(){
+            var main_address=heap.state.user.location_main;
+            if(!main_address){
+                console.log('what to do address not set!!!');
+                return;
+            }
             var self = this;
-            jQuery.post( store.state.hostname + "Store/listGet")
+            jQuery.get( heap.state.hostname + "Store/listNearGet",{location_id:main_address.location_id})
                 .done(function(response) {
                     self.storeList = self.prepareStoreList(response);
                 })

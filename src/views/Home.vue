@@ -1,22 +1,25 @@
 <template>
-  <base-layout page-title="Home">
-      <order-slider></order-slider>
+  <base-layout  page-title="Главная">
       <home-slider></home-slider>
+      <user-address-widget></user-address-widget>
+      <home-primary-category-widget></home-primary-category-widget>
       <store-list></store-list>
   </base-layout>
 </template>
 
 <script>
-  import HomeSlider from '../components/HomeSlider';
-  import StoreList from '../components/StoreList';
-  import OrderSlider from '../components/OrderSlider';
+import HomeSlider from "../components/HomeSlider";
+import StoreList from "../components/StoreList";
+import UserAddressWidget from "../components/UserAddressWidget";
+import HomePrimaryCategoryWidget from "../components/HomePrimaryCategoryWidget";
 
-  export default  {
-    name: 'Home',
-    components: { 
-          HomeSlider, 
-          StoreList,
-          OrderSlider
-      }
-  }
+export default {
+  name: "HomePage",
+  components: {
+    HomeSlider,
+    StoreList,
+    UserAddressWidget,
+    HomePrimaryCategoryWidget
+  },
+};
 </script>
